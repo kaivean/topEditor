@@ -1,5 +1,5 @@
 
- jquery.topEditor-网页编辑器 
+  jquery.topEditor-网页编辑器 
 
      topEditor采用jquery插件$.fn.topEditor和js面向对象机制。并通过$.extend()拓展方法。制作过程中参考诸多文献，如DOM对象的range selection，为了搞懂浏览器兼容问题，上火狐官网等搜索相关Document。又如execCommand方法。当然也参考了很多开源网页编辑器，从中汲取很多细节问题。以改进浏览器兼容性问题。
      尽管还不够优秀，但一颗追求优秀的心。
