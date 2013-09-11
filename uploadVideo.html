@@ -1,0 +1,152 @@
+<!DOCTYPE >
+<html >
+<head runat="server">
+    <title></title>
+	 <meta  charset='utf-8'>
+    <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
+   
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" type="text/javascript"></script>
+    <script src="js/jquery-ui-1.8.16.custom.js" type="text/javascript"></script>
+    <script src="js/ajaxfileupload.js" type="text/javascript"></script>
+    <script>
+
+        // <!--上传本地图片  -->
+
+        function d() {
+
+            var d = $("#file").val();
+            var f = d.lastIndexOf('.') == -1 ? "" : d.substr(d.lastIndexOf('.') + 1).toLowerCase();
+            if (f == "wmv" || f == "flv") {
+
+                $.ajaxFileUpload({
+                    url: 'UploadVideo.aspx',
+                    secureuri: false,
+                    fileElementId: 'file',
+                    dataType: 'json',
+                    success: function (data, status) {
+                         
+                        $("#videopath").val("http://localhost:11974/Blog/BloggingPlatform/201204061628520409.flv");
+
+                    },
+                    error: function (data, status, e) {
+                        alert("error:" + e);
+                    }
+                });
+            }
+            else {
+
+                alert("格式不对");
+            }
+        }
+
+
+        $(document).ready(function () {
+
+            $("#tabs").tabs({
+                width: "550px",
+                height: "250px"
+            });
+
+            // <!--插入本地图片  -->
+            $("#insertLoca").click(function () {
+                window.top.insert.apply(null, [this.src]);
+
+            });
+
+
+            $("#insertOnline").click(function () {
+
+
+                alert($("#Url").val());
+             //   window.top.insert.apply(null, [$("#Url").val()]);
+
+            });
+
+        });  //ready结束
+
+    </script>
+</head>
+<body style="height: 180px; width: 550px;">
+    <form id="form1" enctype="multipart/form-data" action="" method="post">
+    <style>
+        .uploadframe
+        {
+            position: relative;
+            display: inline;
+        }
+        
+        .uploadframe input[type='file']
+        {
+            width: 200px;
+            height: 26px;
+            position: absolute;
+            left: 0px;
+            border-color: #DBDDD7;
+            border-style: solid;
+            padding: 0px;
+            margin: 0px;
+            border-left-width: 150px;
+            border-right-width: 150px;
+            opacity: 0; /*设置它的透明度为0，即完全透明。这个语句，对付除IE以外的浏览器*/
+            filter: alpha(opacity=0); /*设置它的透明度为0，即完全透明。这个语句，对付IE浏览器。*/
+            -moz-opacity: 0;
+        }
+        
+        .uploadframe input[type='text']
+        {
+            border: 1px solid #C0C7C1;
+            background-color: #DBDDD7;
+        }
+        
+        .uploadframe input[type='button']
+        {
+            border-width: 0px;
+            padding: 0px;
+            margin: 0px;
+            width: 100px;
+            height: 26px;
+        }
+    </style>
+    <div id="tabs" style="width: 550px; height: 180px;">
+        <ul>
+            <li><a href="#tabs-1">上传视频</a></li>
+            <li><a href="#tabs-2">网上视频</a></li>
+        </ul>
+        <div id="tabs-1" style="text-align: center">
+            <div style="margin-top: 10px; margin-bottom: 10px">
+                浏览
+                <div class="uploadframe">
+                    <input id="videopath" type="text" readonly />
+                    <input id="up" type="button" value="上传" />
+                    <input id="file" type="file" name="file" onchange="d();" accept="image/gif" />
+                </div>
+            </div>
+            <img alt="" src="img/processing.gif" id="loading" style="display: none" />
+            <br />
+            <div style="text-align: left; font-family: 华文仿宋; font-size: 15px; margin-left: 100px;">
+                提示：
+                <ul>
+                    <li>选择的文件大小不超过200M，支持WMV、FLV；</li>
+                </ul>
+            </div>
+          
+
+        </div>
+     
+        <div id="tabs-2" style="text-align: center">
+            <div style="margin-top: 10px; margin-bottom: 20px">
+                网络地址:
+                <div class="uploadframe">
+                    <input id="Url" type="text" value="http://localhost/test.flv" />
+                </div>
+            </div>
+            <br />
+            <div style="font-family: 华文仿宋; font-size: 15px;">
+                注：此处插入的图片显示会受到图片存放地址的影响！
+            </div>
+            <br />
+        </div>
+    </div>
+    </form>
+</body>
+</html>

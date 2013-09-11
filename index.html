@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title> jquery.topEditor | kaivean自制在线编辑器 </title>
+		<meta charset='utf-8'>
+		<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<link href="css/jquery.topEditor.css" rel="stylesheet" type="text/css"
+		/>
+	</head>
+	<body>
+		<div id="top">
+			<div> </div>
+			<div> </div>
+		</div>
+		<div id="main">
+			<h2 id="bar"> kaivean自制在线编辑器 </h2>
+			<div id="tool">
+				<div class="itemgroup">
+					<a class="item" cmd="Save"> <span class="itemicon iconSave "> </span> </a>
+					<a class="item" cmd="Undo"> <span class="itemicon  iconUndo"> </span> </a>
+					<a class="item" cmd="Redo"> <span class="itemicon  iconRedo"> </span> </a>
+				</div>
+				<div class="itemgroup">
+					<select id="FontName" cmd="FontName">
+						<option value="微软雅黑,'Microsoft YaHei'"> 微软雅黑 </option>
+						<option value="宋体,SimSun"> 宋体 </option>
+						<option value="隶书,SimLi"> 隶书 </option>
+						<option value="黑体,SimHei"> 黑体 </option>
+						<option value="楷体,楷体_GB2312,SimKai">楷体 </option>
+						<option value="andale mono">  andale mono </option>
+					    <option value="arial,helvetica,sans-serif"> arial </option>
+					    <option value="comic sans ms">  comic sans ms </option>
+					</select>
+					<select id="FontSize" cmd="FontSize">
+						<option value="12"> 12 </option>
+						<option value="14" selected="selected"> 14 </option>
+						<option value="16"> 16 </option>
+						<option value="18"> 18 </option>
+						<option value="24"> 24 </option>
+						<option value="36"> 36 </option>
+						<option value="48"> 48 </option>
+					</select>
+				</div>
+				<div class="itemgroup">
+					<a class="item" cmd="Bold" id="b"> <span class="itemicon iconBold"> </span> </a>
+					<a class="item" cmd="Italic"> <span class="itemicon iconItalic"> </span> </a>
+					<a class="item" cmd="Underline"> <span class="itemicon iconUnderline"> </span> </a>
+				</div>
+				<div class="itemgroup">
+					<a class="item" cmd="ForeColor"> <span class="itemicon iconForeColor" cmd="ForeColor"> </span> </a>
+					<a class="item" cmd="BackColor"> <span class="itemicon iconBackColor" cmd="BackColor"> </span> </a>
+				</div>
+				<div class="itemgroup">
+					<a class="item" cmd="JustifyLeft"> <span class="itemicon iconJustifyLeft "> </span> </a>
+					<a class="item" cmd="JustifyCenter"> <span class="itemicon  iconJustifyCenter"> </span> </a>
+					<a class="item" cmd="JustifyRight"> <span class="itemicon  iconJustifyRight"> </span> </a>
+					<a class="item" cmd="JustifyFull"> <span class="itemicon iconJustifyFull"> </span> </a>
+				</div>
+				<div class="itemgroup">
+					<a class="item" cmd="CreateLink"> <span class="itemicon iconCreateLink"> </span> </a>
+					<a class="item" cmd="RemoveFormat"> <span class="itemicon  iconRemoveFormat"> </span> </a>
+				</div>
+				<div class="itemgroup">
+					<a class="item" cmd="InsertVideo"> <span class="itemicon iconInsertVideo "> </span> </a>
+					<a class="item" cmd="InsertImage"> <span class="itemicon iconInsertImage "> </span> </a>
+					
+					<a class="item" cmd="InserteFace"> <span class="itemicon iconInsertFace "> </span> </a>
+					
+				</div>
+				
+				<div class="itemgroup">
+					<a class="item" cmd="Html"> <span class="itemicon iconHtml "> </span> </a>
+	
+				</div>
+				<div class="itemgroup">
+					<div id="submit">
+						提交
+					</div>
+				</div>
+			</div>
+			<div id="blogTitle">
+				<input id="title" type="text" />
+			</div>
+			<div id="">
+				<textarea id="topEditor" >
+				</textarea>
+			</div>
+		</div>
+		<div></div>
+		<div id="footer">
+			<div></div>
+		</div>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" type="text/javascript"></script>
+		<script src="js/jquery-ui-1.8.16.custom.js" type="text/javascript"></script>
+		<script src="js/jscolor/jscolor.js" type="text/javascript"></script>
+		<script src="js/jquery-Watermark.js" type="text/javascript"></script>
+		<script src="topEditorInfo.js" type="text/javascript"></script>
+		<script src="topEditorControls.js" type="text/javascript"></script>
+		<script src="jquery.topEditor.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			(function($) {
+
+				$('#topEditor').topEditor();
+
+				$("#title").Watermark({
+					text : '请输入主题'
+				});
+
+				$("#Button1").click(function() {
+					$("#TextArea1").val($('#topEditor').data("topEditor").getContent());
+					alert($.data(document.getElementById("b")));
+
+					alert($('#topEditor').data("topEditor").getText());
+				});
+
+			})(jQuery);
+		</script>
+	</body>
+
+</html>

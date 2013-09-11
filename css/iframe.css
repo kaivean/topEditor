@@ -1,0 +1,31 @@
+﻿html,body, p{padding:0; margin:0; /**line-height:1.6;**/ line-height:1.6; font-family:微软雅黑,Microsoft YaHei; font-size:14px; cursor: text;}
+
+body
+{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    padding: 5px 10px 5px 5px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+} 
+strong, b {
+font-weight: bold;
+}
+i, cite, em, var, address, dfn {
+font-style: italic;
+}
+u
+{
+    text-decoration: underline;
+}
+
+
+a{border: none; text-decoration: none;}
+img{border:0px;}
+
+

@@ -1,0 +1,316 @@
+<!DOCTYPE >
+<html >
+<head runat="server">
+    <title></title>
+	 <meta  charset='utf-8'>
+    <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
+	
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" type="text/javascript"></script>
+
+    <script src="js/jquery-ui-1.8.16.custom.js" type="text/javascript"></script>
+    <script src="js/ajaxfileupload.js" type="text/javascript"></script>
+
+    <script>
+
+        // <!--上传本地图片  -->
+
+        $(document).ready(function () {
+            var num = 0;
+            function d() {
+                if (num > 4) { alert("不能再插入"); return false; }
+                var d = $("#file").val();
+                var f = d.lastIndexOf('.') == -1 ? "" : d.substr(d.lastIndexOf('.') + 1).toLowerCase();
+                if (f == "gif" || f == "png" || f == "jpg") {
+                    var i = $("<img/>").attr("src", $("#loading").attr("src"));
+                    $(".pre li").eq(num).append(i);
+                    $.ajaxFileUpload({
+                        url: 'uploadImg.php',
+                        secureuri: false,
+                        fileElementId: 'file',
+                        dataType: 'json',
+                        success: function (data, status) {
+
+                            $("#tabs-1 .pre li").eq(num).find("img")[0].src = data.msg.path;
+                            $("#tabs-1 .pre li").eq(num)
+                     .hover(function () { $(this).find("div").addClass("showclose"); })
+                     .mouseleave(function () { $(this).find("div").removeClass("showclose"); });
+
+
+                            num++;
+                        },
+                        error: function (data, status, e) {
+                            alert("error:" + e);
+                        }
+                    });
+                }
+                else {
+
+                    alert("格式不对");
+                }
+            }
+
+
+            $("#tabs").tabs({
+                width: "500px",
+                height: "300px"
+            });
+            // <!--初始化  -->
+            for (var i = 0; i < 5; i++) {
+                $("<li><div>x</div></li>").appendTo(".pre ul");
+
+            }
+
+            $("#tabs-1 .pre li div").click(function () {
+                var p = $(this).parent().parent();
+                $(this).parent().remove();
+                $("<li><div>x</div></li>").appendTo(p);
+                num--;
+
+            });
+
+            // <!--网上图片  -->
+            //http://simg.sinajs.cn/blog7style/images/common/topbar/topbar_logo.gif
+            var onum = 0;
+            $("#add").click(function () {
+                var d = $.trim($("#Url").val());
+                var f = d.lastIndexOf('.') == -1 ? "http://" : d.substr(d.lastIndexOf('.') + 1).toLowerCase();
+                if (f == "gif" || f == "png" || f == "jpg") {
+                    var i = $("<img/>").attr("src", $("#loading").attr("src"));
+                    $("#tabs-2 .pre li").eq(onum).append(i);
+                    i[0].src = $("#Url").val();
+
+                    $("#tabs-2 .pre li").eq(onum)
+                                .hover(function () { $(this).find("div").addClass("showclose"); })
+                                .mouseleave(function () { $(this).find("div").removeClass("showclose"); });
+
+                    onum++;
+                }
+                else {
+                    alert("图片格式不符合要求"); return false;
+                }
+
+
+            });
+
+            // <!--插入本地图片  -->
+            $("#insertLoca").click(function () {
+
+                var a = new Array();
+                $("#tabs-1 .pre li img").each(function () {
+                    window.top.insert.apply(null, [this.src]);
+                    a.push(this.src);
+                });
+
+
+
+            });
+
+            $("#insertOnline").click(function () {
+
+                var a = new Array();
+                $("#tabs-2 .pre li img").each(function () {
+                    alert(this.src);
+                 //   window.top.insert.apply(null, [this.src]);
+                    a.push(this.src);
+                });
+
+
+            });
+
+            $("#tabs-2 .pre li div").click(function () {
+                var p = $(this).parent().parent();
+                $(this).parent().remove();
+                $("<li><div>x</div></li>").appendTo(p);
+                onum--;
+
+            });
+
+
+
+        }); //ready结束
+
+    </script>
+</head>
+<body style="height: 280px; width: 600px; ">
+    <form id="form1" enctype="multipart/form-data" action="" method="post"
+    runat="server">
+    <style>
+        body
+        {
+            
+            }
+        ul
+        {     margin: 0px;
+            
+            }
+        ul li
+        {
+           
+                list-style: none;
+            
+            }
+            
+        .pre
+        { 
+            margin-left: auto;
+            margin-right: auto;
+            width:400px;
+            background-color: #E0E2E0; 
+            }
+        
+        .pre ul li
+        {
+            position: relative;
+            float: left;
+            display: block;
+            width: 50px;
+            height: 50px;
+            list-style: none;
+            margin-left: 5px;
+            margin-right: 5px;
+            border-width: 2px;
+            border-color: #9999FF;
+            border-style: solid;
+               cursor: pointer;
+        }
+        .pre ul li:hover
+        {
+            /*图像框等在鼠标在其上时 发光 */
+            transition: border linear .2s,box-shadow linear .5s;
+            -moz-transition: border linear .2s,-moz-box-shadow linear .5s;
+            -webkit-transition: border linear .2s,-webkit-box-shadow linear .5s;
+            outline: none;
+            border-color: rgba(241,39,242,.75);
+            box-shadow: 0 0 5px rgba(241,39,232,.5);
+            -moz-box-shadow: 0 0 5px rgba(241,39,232,.5);
+            -webkit-box-shadow: 0 0 5px rgba(241,39,232,3);
+        }
+        .pre ul li div
+        {
+           display: none;
+        }
+        .pre ul li div.showclose
+        {
+            width: 10px;
+            height: 5px;
+            position: absolute;
+            right: 0px;
+            top:-5px;
+            display: block;
+            cursor: pointer;
+        }
+        
+        .pre ul li img
+        {
+            width: 50px;
+            height: 50px;
+            list-style-type: none;
+        }
+        
+        .uploadframe
+        {
+            position: relative;
+            display: inline;
+        }
+        
+        .uploadframe input[type='file']
+        {
+            width: 317px;
+            height: 26px;
+            position: absolute;
+            left: 0px;
+            border-color: #DBDDD7;
+            border-style: solid;
+            padding: 0px;
+            margin: 0px;
+            border-left-width: 150px;
+            border-right-width: 150px;
+            opacity: 0; /*设置它的透明度为0，即完全透明。这个语句，对付除IE以外的浏览器*/
+            filter: alpha(opacity=0); /*设置它的透明度为0，即完全透明。这个语句，对付IE浏览器。*/
+            -moz-opacity: 0;
+        }
+        
+        .uploadframe input[type='text']
+        {
+            border: 1px solid #C0C7C1;
+            background-color: #DBDDD7;
+        }
+        
+        .uploadframe input[type='button']
+        {
+            border-width: 0px;
+            padding: 0px;
+            margin: 0px;
+            width: 100px;
+            height: 26px;
+        }
+    </style>
+
+    <div id="tabs" style="width: 600px; height: 280px;">
+        <ul>
+            <li><a href="#tabs-1">本地上传</a></li>
+            <li><a href="#tabs-2">网上图片</a></li>
+            <li><a href="#tabs-3">博客图片</a></li>
+        </ul>
+        <div id="tabs-1" style="text-align: center; ">
+          
+                <div style="margin-top: 10px; margin-bottom: 10px">
+                    浏览
+                    <div class="uploadframe">
+                        <input id="imgpath" type="text" readonly />
+                        <input id="up" type="button" value="上传" />
+                        <input id="file" type="file" name="file" onchange="d();" accept="image/gif" />
+                    </div>
+                </div>
+          
+                <img alt="" src="image/processing.gif" id="loading" style="display: none" />
+             
+                 <br />
+                <div style="text-align: left; font-family: 华文仿宋; font-size: 15px; margin-left: 100px;">提示：
+                   <ul>
+                     <li>选择的文件大小不超过5M，支持jpg、gif、png；</li>  
+                   </ul>
+               </div>
+                <br /> <br />
+             
+                <div class="pre">
+                    <div style="text-align: left; padding-left: 40px;font-size: 12px;font-family: Verdana, "宋体", sans-serif;">预览:一次最多添加5张图片</div>
+                    <ul style="margin: 5px; height: 60px;">
+ 
+                    </ul>
+                </div>
+       
+        </div>
+
+        <div id="tabs-2" style="text-align: center">
+                <div style="margin-top: 10px; margin-bottom: 20px">
+                    添加
+                    <div class="uploadframe">
+                        <input id="Url" type="text" value="http://simg.sinajs.cn/blog7style/images/common/topbar/topbar_logo.gif" />
+                        <input id="add" type="button" value="添加" />
+                    </div>
+                </div>
+                 <br />
+                <div style="font-family: 华文仿宋; font-size: 15px;">注：此处插入的图片显示会受到图片存放地址的影响！ </div>
+                <img alt="" src="image/processing.gif" id="Img1" style="display: none" />
+                <br /> <br />
+                <div class="pre">
+                    <div style="text-align: left; padding-left: 40px;font-size: 12px;font-family: Verdana, "宋体", sans-serif;">预览:一次最多添加5张图片</div>
+                    <ul style="margin: 5px; height: 60px;">
+ 
+                    </ul>
+                </div>
+              
+          
+        </div>
+
+        <div id="tabs-3" style="text-align: center">
+                暂不支持！
+              
+        </div>
+    </div>
+
+    </form>
+</body>
+</html>
+
